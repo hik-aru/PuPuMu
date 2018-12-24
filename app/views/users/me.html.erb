@@ -1,2 +1,15 @@
-<h1>マイページ</h1>
-<%= @current_user.email %>
+<%= link_to "TOPへ", root_path %>
+<div class="card-header">
+  <h4>マイページ</h4>
+  <%= @current_user.email %><br>
+
+  得意言語
+  <% @current_user.good_langs.each do |pg| %>
+    <span class="badge badge-primary"><%= pg.name %></span>
+  <% end %><br>
+  学びたい言語
+  <% @current_user.learn_langs.each do |pg| %>
+    <span class="badge badge-primary"><%= pg.name %></span>
+  <% end %>
+</div>
+

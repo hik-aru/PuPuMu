@@ -2,6 +2,7 @@ Rails.application.routes.draw do
   get 'mypage', to: 'users#me'
   post 'login', to: 'sessions#create'
   get 'top/login'
+  get 'users/search'
   get 'sessions/create'
   get 'sessions/destroy'
 

@@ -5,6 +5,7 @@ class UsersController < ApplicationController
 
   def create
     user = User.new(user_params)
+    #good_lang = GoodLangRelation.new()
     if user.save
       session[:user_id] = user.id
       redirect_to mypage_path
@@ -19,10 +20,14 @@ class UsersController < ApplicationController
   def me
   end
 
+  def search
+    @user = User.new()
+  end
+
   private
 
   def user_params
-    params.require(:user).permit(:email, :password, :password_confirmation)
+    params.require(:user).permit(:email, :password, :password_confirmation, good_lang_ids: [],  learn_lang_ids: [])
   end
 
 end
