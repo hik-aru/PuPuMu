@@ -6,15 +6,18 @@
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
 if Rails.env == 'development'
-    ProgramLang.create([
-      { name: 'Ruby' },
-      { name: 'PHP' },
-      { name: 'C' },
-      { name: 'C#' },
-      { name: 'C++' },
-      { name: 'Java' },
-      { name: 'Javascript' },
-      { name: 'Swift' },
-      { name: 'Kotlin' }
-    ])
+  ProgramLang.create([
+    { :name => "C" },
+    { :name => "C#" },
+    { :name => "C++" },
+    { :name => "Java" },
+    { :name => "JavaScript" },
+    { :name => "Ruby" },
+    { :name => "PHP" },
+    { :name => "Python" },
+    { :name => "Go" },
+    { :name => "Scala" },
+    { :name => "Kotlin" },
+    { :name => "Swift" }
+  ])
 end

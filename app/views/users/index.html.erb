@@ -1,0 +1,39 @@
+<%= render 'shared/error_messages' %>
+
+<h1>言語友達検索</h1>
+<%= search_form_for @search, url: users_index_path do |f| %>
+  <%= f.label :user_name_cont, 'ユーザー名' %>
+  <%= f.text_field :user_name_cont %>
+
+  <%= f.label :age_eq, '年齡' %>
+  <%= f.text_field :age_eq %>
+
+  <%= f.label :prefecture_id_eq, '地域' %>
+  <%= f.collection_select :prefecture_id_eq, Prefecture.all, :id, :name, :include_blank => '指定なし' %>
+  <br>
+
+  <%= f.label :good_lang, "得意言語" %>
+  <%= f.collection_check_boxes :good_langs_id_in, ProgramLang.all, :id, :name %>
+  <br>
+  <%= f.label :learn_lang, "学びたい言語" %>
+  <%= f.collection_check_boxes :learn_langs_id_in, ProgramLang.all, :id, :name %>
+
+  <div>
+    <%= f.submit '検索する' %>
+  </div>
+<% end %>
+<br>
+<% @users.each do |u| %>
+  <%= u.user_name %>
+  <%= u.age %>
+  <%= u.prefecture_id %>
+  <% u.good_langs.each do |pg| %>
+    得意->
+    <span class="badge badge-primary"><%= pg.name %></span>
+  <% end %><br>
+
+  <% u.learn_langs.each do |pg| %>
+    学び->
+    <span class="badge badge-primary"><%= pg.name %></span>
+  <% end %><br>
+<% end %>
