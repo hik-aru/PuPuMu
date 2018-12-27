@@ -1,9 +1,17 @@
 <%= render 'shared/error_messages' %>
-
+<%= link_to "TOPへ", root_path %>
 <h1>言語友達検索</h1>
 <%= search_form_for @search, url: users_index_path do |f| %>
   <%= f.label :user_name_cont, 'ユーザー名' %>
   <%= f.text_field :user_name_cont %>
+
+  <%= f.label :gender_eq, '性別' %>
+  <%= f.label :gender_eq, '指定なし' %>
+  <%= f.radio_button :gender_eq, '' %>
+  <%= f.label :male, '男性' %>
+  <%= f.radio_button :gender_eq, '1' %>
+  <%= f.label :female, '女性' %>
+  <%= f.radio_button :gender_eq, '2' %><br>
 
   <%= f.label :age_eq, '年齡' %>
   <%= f.text_field :age_eq %>

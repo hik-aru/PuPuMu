@@ -8,6 +8,8 @@ class User < ApplicationRecord
   #has_many :program_langs, through: :good_lang_relations
   #has_many(:good_langs, {:through => :good_lang_relations, :source => :program_lang})
 
+  enum gender: { male: 1, female: 2 }
+
   validates :email,
     { :presence => true,
       :uniqueness => true,
@@ -19,4 +21,7 @@ class User < ApplicationRecord
     }
   validates :password,
     length: { minimum: 8}
+
+  
+
 end

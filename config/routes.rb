@@ -1,8 +1,10 @@
 Rails.application.routes.draw do
   get 'mypage', to: 'users#me'
   post 'login', to: 'sessions#create'
+  delete 'logout', to: 'sessions#destroy'
   get 'top/login'
   get 'users/index'
+  get 'users/me'
   get 'sessions/create'
   get 'sessions/destroy'
 
