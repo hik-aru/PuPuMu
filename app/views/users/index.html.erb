@@ -32,9 +32,14 @@
 <% end %>
 <br>
 <% @users.each do |u| %>
-  <%= u.user_name %>
+  <a href="/users/<%= u.id %>"><%= u.user_name %></a>
   <%= u.age %>
-  <%= u.prefecture_id %>
+  <% if u.gender == 'male' %>
+    男性
+  <% else %>
+    女性
+  <% end %>
+  <%= u.prefecture.name %>
   <% u.good_langs.each do |pg| %>
     得意->
     <span class="badge badge-primary"><%= pg.name %></span>

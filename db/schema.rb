@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_12_27_122215) do
+ActiveRecord::Schema.define(version: 2018_12_25_145024) do
 
   create_table "good_lang_relations", force: :cascade do |t|
     t.integer "user_id"
@@ -43,10 +43,10 @@ ActiveRecord::Schema.define(version: 2018_12_27_122215) do
     t.string "password_digest", null: false
     t.string "user_name", null: false
     t.integer "age", null: false
+    t.integer "gender", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "prefecture_id"
-    t.integer "gender"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["prefecture_id"], name: "index_users_on_prefecture_id"
   end
