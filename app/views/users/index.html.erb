@@ -13,8 +13,10 @@
   <%= f.label :female, '女性' %>
   <%= f.radio_button :gender_eq, '2' %><br>
 
-  <%= f.label :age_eq, '年齡' %>
-  <%= f.text_field :age_eq %>
+  <%= f.label :age_gteq, '年齡' %>
+  <%= f.select(:age_gteq, options_for_select((18..85).to_a)) %>
+  <strong>~</strong>
+  <%= f.select(:age_lteq, options_for_select((18..85).to_a)) %>  
 
   <%= f.label :prefecture_id_eq, '地域' %>
   <%= f.collection_select :prefecture_id_eq, Prefecture.all, :id, :name, :include_blank => '指定なし' %>

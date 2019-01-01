@@ -1,0 +1,31 @@
+<%= stylesheet_link_tag "https://fonts.googleapis.com/css?family=Montserrat:400,400i,500,500i,600,600i,700,700i", :media => "all" %>
+<%= stylesheet_link_tag "me/bootstrap.min.css", :media => "all" %>
+<%= stylesheet_link_tag "me/font-awesome.min.css", :media => "all" %>
+<%= stylesheet_link_tag "me/flaticon.css", :media => "all" %>
+<%= stylesheet_link_tag "me/owl.carousel.css", :media => "all" %>
+<%= stylesheet_link_tag "me/style.css", :media => "all" %>
+<%= stylesheet_link_tag "me/animate.css", :media => "all" %>
+
+<header class="header-section">
+  <div class="container">
+    <!-- Site Logo -->
+    <a href="index.html" class="site-logo">
+      <%= image_tag("/images/logo.PNG", :size => "115x55") %>
+    </a>
+    <!-- responsive -->
+    <div class="nav-switch">
+      <i class="fa fa-bars"></i>
+    </div>
+    <!-- Main Menu -->
+    <ul class="main-menu">
+      <li class="active"><a href="index.html">Home</a></li>
+      <li><%= link_to "言語友達検索", users_index_path %></li>
+      <li><%= link_to "メッセージ", rooms_path %></li>
+      <li><a href="blog.html">マイページ</a></li>
+      <li><%= link_to 'ログアウト', logout_path, method: :delete %></li>
+      <li><a href="elements.html"><i class="flaticon-020-decay"></i></a></li>
+    </ul>
+
+  </div>
+
+</header>
