@@ -1,54 +1,124 @@
 <%= render 'shared/error_messages' %>
-<%= link_to "TOPへ", root_path %>
-<h1>言語友達検索</h1>
-<%= search_form_for @search, url: users_index_path do |f| %>
-  <%= f.label :user_name_cont, 'ユーザー名' %>
-  <%= f.text_field :user_name_cont %>
+<%= render 'header' %>
+<link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
 
-  <%= f.label :gender_eq, '性別' %>
-  <%= f.label :gender_eq, '指定なし' %>
-  <%= f.radio_button :gender_eq, '' %>
-  <%= f.label :male, '男性' %>
-  <%= f.radio_button :gender_eq, '1' %>
-  <%= f.label :female, '女性' %>
-  <%= f.radio_button :gender_eq, '2' %><br>
+<!------ Include the above in your HEAD tag ---------->
 
-  <%= f.label :age_gteq, '年齡' %>
-  <%= f.select(:age_gteq, options_for_select((18..85).to_a)) %>
-  <strong>~</strong>
-  <%= f.select(:age_lteq, options_for_select((18..85).to_a)) %>  
+<div class="container">
+	<div class="row">
+		<h1 align="center">言語友達検索</h1> <br/>
 
-  <%= f.label :prefecture_id_eq, '地域' %>
-  <%= f.collection_select :prefecture_id_eq, Prefecture.all, :id, :name, :include_blank => '指定なし' %>
-  <br>
+    <div class="container">
+    <%= search_form_for @search, url: users_index_path do |f| %>    
+      <div class="row">
+        <div class="col-md-3 col-sm-3 col-xs-3"></div>
+        <div class="col-md-3 col-sm-3 col-xs-3 sec">
+          <%= f.label :user_name_cont, 'ユーザー名(表示名)' %>
+          <%= f.text_field :user_name_cont, class: 'form-control' %>
+        </div>
+        <div class="col-md-3 col-sm-3 col-xs-3 sec">
+          <%= f.label :gender_eq, '性別' %><br>
+          <div class="radio-inline">
+            <%= f.radio_button :gender_eq, '' %>
+            <%= f.label :gender_eq, '指定なし' %>
+          </div>
+          <div class="radio-inline">
+            <%= f.radio_button :gender_eq, '1' %>
+            <%= f.label :male, '男性' %>
+          </div>      
+          <div class="radio-inline">
+            <%= f.radio_button :gender_eq, '2' %>
+            <%= f.label :female, '女性' %>
+          </div>
+        </div>
+        <div class="col-md-3 col-sm-3 col-xs-3"></div>
+      </div>
+    
+      <div class="row">
+        <div class="col-md-3 col-sm-3 col-xs-3"></div>
+        <div class="col-xs-1">
+          <%= f.label :age_gteq, '年齡 from' %>
+          <%= f.select(:age_gteq, options_for_select((18..85).to_a), {prompt: ""}, {class: 'form-control'}) %>
+        </div>
+        <div class="col-xs-1">
+          <%= f.label :age_lteq, 'to' %>
+          <%= f.select(:age_lteq, options_for_select((18..85).to_a), {prompt: ""}, {class: 'form-control'}) %>
+        </div>
+        <div class="col-md-1 col-sm-3 col-xs-3"></div>
+        <div class="col-md-1 col-sm-1 col-xs-6">
+          <%= f.label :gender_eq, '地域' %><br>
+          <%= f.collection_select(:prefecture_id, Prefecture.all, :id, :name, {prompt: ""}, {class: 'form-control'}) %>
+        </div>
+        <div class="col-md-3 col-sm-3 col-xs-3"></div>
+      </div>
 
-  <%= f.label :good_lang, "得意言語" %>
-  <%= f.collection_check_boxes :good_langs_id_in, ProgramLang.all, :id, :name %>
-  <br>
-  <%= f.label :learn_lang, "学びたい言語" %>
-  <%= f.collection_check_boxes :learn_langs_id_in, ProgramLang.all, :id, :name %>
-
-  <div>
-    <%= f.submit '検索する' %>
-  </div>
-<% end %>
-<br>
-<% @users.each do |u| %>
-  <a href="/users/<%= u.id %>"><%= u.user_name %></a>
-  <%= u.age %>
-  <% if u.gender == 'male' %>
-    男性
-  <% else %>
-    女性
+      <div class="row">
+      <div class="col-md-3 col-sm-3 col-xs-3"></div>
+        <div class="col-md-8 col-sm-6 col-xs-6">
+          <%= f.label :good_lang, "得意言語" %><br>
+          <%= f.collection_check_boxes :good_langs_id_in, ProgramLang.all, :id, :name %>  
+        </div>
+        <div class="col-md-3 col-sm-3 col-xs-3"></div>
+      </div>
+      
+      <div class="row">
+      <div class="col-md-3 col-sm-3 col-xs-3"></div>
+        <div class="col-md-8 col-sm-6 col-xs-6">
+          <%= f.label :good_lang, "学びたい言語" %><br>
+          <%= f.collection_check_boxes :learn_langs_id_in, ProgramLang.all, :id, :name %>
+        </div>
+        <div class="col-md-3 col-sm-3 col-xs-3"></div>
+      </div>
+      <br>
+      <div class="row">
+        <div class="col-md-5 col-sm-5 col-xs-5"></div>
+        <div class="col-md-2 col-sm-2 col-xs-3"><button type="submit" class="btn btn-primary">検索する</button></div>
+        <div class="col-md-5 col-sm-5 col-xs-35"></div>
+      </div>
+        
+    </div>
   <% end %>
-  <%= u.prefecture.name %>
-  <% u.good_langs.each do |pg| %>
-    得意->
-    <span class="badge badge-primary"><%= pg.name %></span>
-  <% end %><br>
+	</div>
+</div>
 
-  <% u.learn_langs.each do |pg| %>
-    学び->
-    <span class="badge badge-primary"><%= pg.name %></span>
-  <% end %><br>
+<br><br>
+<% @users.each do |u| %> 
+  <table class="table">
+    <tbody> 
+    <tr>
+      <td>
+        <div class="media">
+          <a class="pull-left" href="/users/<%= u.id %>">
+            <%= image_tag(u.image.to_s, :size => "100x100", :class => "media-object dp img-circle") %>
+          </a>
+          <div class="media-body">
+            <h4 class="media-heading"><%= u.user_name %> <small> <%= u.age %>歳 </small></h4>
+            <h5>
+              【地域】<%= u.prefecture.name %>
+              【性別】<% if u.gender == 'male' %>男性<% else %>女性<% end %>
+            </h5>
+            <hr style="margin:8px auto">
+            <strong>得意　　</strong>
+            <% u.good_langs.each do |pg| %>
+              <h6 id="badge"><span class="label label-primary"><%= pg.name %></span></h6>
+            <% end %><br>
+            <strong>学びたい</strong>
+            <% u.learn_langs.each do |pg| %>
+              <h6 id="badge"><span class="label label-warning"><%= pg.name %></span></h6>
+            <% end %>
+          </div>
+        </div>
+      </td>
+    </tr>
+  </table> 
 <% end %>
+    
+
+  
+
+  
+
+
+    
+
+</div>

@@ -1,30 +1,125 @@
 <%= render 'header' %>
+<%= stylesheet_link_tag "https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css", :media => "all" %>
+<script type="text/javascript">
+$(document).on('change', ':file', function() {
+    var input = $(this),
+    numFiles = input.get(0).files ? input.get(0).files.length : 1,
+    label = input.val().replace(/\\/g, '/').replace(/.*\//, '');
+    input.parent().parent().next(':text').val(label);
+});
+</script>
 
-<%= link_to "TOPへ", root_path %>
-<div class="card-header">
-  <h4>マイページ</h4>
-  メールアドレス
-  <%= @current_user.email %><br>
-  表示名
-  <%= @current_user.user_name %><br>
-  性別
-  <% if @current_user.gender == 'male' %>
-    男性<br>
-  <% else %>
-    女性<br>
-  <% end %>
-  年齡
-  <%= @current_user.age %><br>
-  地域
-  <%= @current_user.prefecture.name %><br>
+<div class="container bootstrap snippet">
+  <div class="row">
+  	<div class="col-sm-10"><h1><%= @current_user.user_name %></h1></div>
+  </div>
+  <div class="row">
+  	<div class="col-sm-3"><!--left col-->
 
-  得意言語
-  <% @current_user.good_langs.each do |pg| %>
-    <span class="badge badge-primary"><%= pg.name %></span>
-  <% end %><br>
-  学びたい言語
-  <% @current_user.learn_langs.each do |pg| %>
-    <span class="badge badge-primary"><%= pg.name %></span>
-  <% end %>
+      <div class="text-center">
+      <%= form_for @current_user do |f| %>
+        <% if @current_user.image %>
+          <%= image_tag(@current_user.image.to_s, :size => "200x100", :class => "avatar img-circle img-thumbnail") %>
+          <h6></h6>
+          <div class="input-group">
+           <label class="input-group-btn">
+            <span class="btn btn-primary">
+              Choose File<%= f.file_field :image, :style => "display:none" %>
+            </span>
+          </label>
+            <input type="text" class="form-control" readonly="">
+          </div>
+        <% else %>
+          <img src="http://ssl.gstatic.com/accounts/ui/avatar_2x.png" class="avatar img-circle img-thumbnail" alt="avatar">
+          <h6>Upload a different photo...</h6>
+          <input type="file" class="text-center center-block file-upload">
+        <% end %>
+      
+      </div></hr><br>  
+
+      <div class="panel panel-default">
+        <div class="panel-heading">Website <i class="fa fa-link fa-1x"></i></div>
+        <div class="panel-body"><a href="http://bootnipets.com">bootnipets.com</a></div>
+      </div>
+      <div class="panel panel-default">
+        <div class="panel-heading">Social Media</div>
+        <div class="panel-body">
+        	<i class="fa fa-facebook fa-2x"></i> <i class="fa fa-github fa-2x"></i> <i class="fa fa-twitter fa-2x"></i> <i class="fa fa-pinterest fa-2x"></i> <i class="fa fa-google-plus fa-2x"></i>
+        </div>
+      </div>
+    </div><!--/col-3-->
+
+  	<div class="col-sm-9">
+
+      <div class="tab-content">
+        <div class="tab-pane active" id="home">
+          <hr>
+            <div class="form-group">
+              <div class="col-xs-6">
+                <label for="nickname"><h4>表示名</h4></label>
+                <%= f.text_field :user_name, class: 'form-control' %>
+              </div>
+            </div>
+            <div class="form-group">
+              <div class="col-xs-6">
+                <label for="last_name"><h4>地域</h4></label>
+                <%= f.collection_select(:prefecture_id, Prefecture.all, :id, :name, {prompt: ""}, {class: 'form-control'}) %> 
+              </div>
+            </div>
+        
+            <div class="form-group">
+              <div class="col-xs-12">
+                <label for="good_lang"><h4>得意言語</h4></label><br>
+                <%= f.collection_check_boxes(:good_lang_ids, ProgramLang.all, :id, :name) do |n| %>
+                  <div class="checkbox-inline">
+                    <%= n.label do %>
+                      <%= n.check_box %>
+                      <%= n.text %>
+                    <% end %>          
+                  </div>
+                <% end %>
+              </div>
+            </div>
+                        
+            <div class="form-group">        
+              <div class="col-xs-12">
+                <label for="learn_lang"><h4>学びたい言語</h4></label><br>
+                <%= f.collection_check_boxes(:learn_lang_ids, ProgramLang.all, :id, :name) do |n| %>
+                  <div class="checkbox-inline">
+                    <%= n.label do %>
+                      <%= n.check_box %>
+                      <%= n.text %>
+                    <% end %>          
+                  </div>
+                <% end %>
+              </div>
+            </div>
+            <div class="form-group">
+              <div class="col-xs-6">
+              <%= f.label :password, 'パスワード' %>
+              <%= f.password_field :password, class: 'form-control' %>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <div class="col-xs-6">
+              <%= f.label :password_confirmation, '確認用パスワード' %>
+              <%= f.password_field :password_confirmation, class: 'form-control' %>
+              </div>
+            </div>
+                        
+            <div class="form-group">
+              <div class="col-xs-12">
+                <br>
+                <%= f.submit 'SAVE', class: 'btn btn-lg btn-success' %>
+              </div>
+            </div>
+          <% end %>
+                              
+          <hr>
+                              
+         </div><!--/tab-pane-->
+      </div><!--/tab-content--  
+    </div><!--/col-9-->
+  </div><!--/row-->
 </div>
-

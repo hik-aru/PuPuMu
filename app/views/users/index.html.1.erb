@@ -1,0 +1,106 @@
+<%= render 'shared/error_messages' %>
+<%= render 'header' %>
+<link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+<script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+<!------ Include the above in your HEAD tag ---------->
+
+<div class="container">
+	<div class="row">
+		<h1 align="center">言語友達検索</h1> <br/>
+
+
+    <div class="container">
+        
+<div class="row">
+    <div class="col-md-3 col-sm-3 col-xs-3"></div>
+    <div class="col-md-3 col-sm-3 col-xs-3 sec"><select class="form-control">
+  <option>District</option>
+  <option>1</option>
+  <option>2</option>
+  <option>3</option>
+  <option>4</option>
+  <option>5</option>
+</select>
+    </div>
+    <div class="col-md-3 col-sm-3 col-xs-3 sec"><select class="form-control">
+  <option>Town</option>
+  <option>2</option>
+  <option>3</option>
+  <option>4</option>
+  <option>5</option>
+</select></div>
+    <div class="col-md-3 col-sm-3 col-xs-3"></div>
+</div>
+    <br>
+        <div class="row">
+        <div class="col-md-3 col-sm-3 col-xs-3"></div>
+        <div class="col-md-6 col-sm-6 col-xs-6">
+            <input type="search" class="form-control" placeholder="what are you looking for">
+            
+        </div>
+        <div class="col-md-3 col-sm-3 col-xs-3"></div>
+        </div>
+        <br>
+        <div class="row">
+            <div class="col-md-5 col-sm-5 col-xs-5"></div>
+            <div class="col-md-2 col-sm-2 col-xs-3"><button type="button" class="btn btn-primary">Primary</button></div>
+            <div class="col-md-5 col-sm-5 col-xs-35"></div>
+        </div>
+        
+    </div>
+	</div>
+</div>
+
+<h1>言語友達検索</h1>
+<%= search_form_for @search, url: users_index_path do |f| %>
+  <%= f.label :user_name_cont, 'ユーザー名' %>
+  <%= f.text_field :user_name_cont %>
+
+  <%= f.label :gender_eq, '性別' %>
+  <%= f.label :gender_eq, '指定なし' %>
+  <%= f.radio_button :gender_eq, '' %>
+  <%= f.label :male, '男性' %>
+  <%= f.radio_button :gender_eq, '1' %>
+  <%= f.label :female, '女性' %>
+  <%= f.radio_button :gender_eq, '2' %><br>
+
+  <%= f.label :age_gteq, '年齡' %>
+  <%= f.select(:age_gteq, options_for_select((18..85).to_a)) %>
+  <strong>~</strong>
+  <%= f.select(:age_lteq, options_for_select((18..85).to_a)) %>  
+
+  <%= f.label :prefecture_id_eq, '地域' %>
+  <%= f.collection_select :prefecture_id_eq, Prefecture.all, :id, :name, :include_blank => '指定なし' %>
+  <br>
+
+  <%= f.label :good_lang, "得意言語" %>
+  <%= f.collection_check_boxes :good_langs_id_in, ProgramLang.all, :id, :name %>
+  <br>
+  <%= f.label :learn_lang, "学びたい言語" %>
+  <%= f.collection_check_boxes :learn_langs_id_in, ProgramLang.all, :id, :name %>
+
+  <div>
+    <%= f.submit '検索する' %>
+  </div>
+<% end %>
+<br>
+<% @users.each do |u| %>
+  <a href="/users/<%= u.id %>"><%= u.user_name %></a>
+  <%= u.age %>
+  <% if u.gender == 'male' %>
+    男性
+  <% else %>
+    女性
+  <% end %>
+  <%= u.prefecture.name %>
+  <% u.good_langs.each do |pg| %>
+    得意->
+    <span class="badge badge-primary"><%= pg.name %></span>
+  <% end %><br>
+
+  <% u.learn_langs.each do |pg| %>
+    学び->
+    <span class="badge badge-primary"><%= pg.name %></span>
+  <% end %><br>
+<% end %>

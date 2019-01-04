@@ -1,0 +1,32 @@
+<%= render 'header' %>
+
+<%= link_to "TOPへ", root_path %>
+<div class="card-header">
+  <h4>マイページ</h4>
+  メールアドレス
+  <%= @current_user.email %><br>
+  表示名
+  <%= @current_user.user_name %><br>
+  性別
+  <% if @current_user.gender == 'male' %>
+    男性<br>
+  <% else %>
+    女性<br>
+  <% end %>
+  年齡
+  <%= @current_user.age %><br>
+  地域
+  <%= @current_user.prefecture.name %><br>
+
+  得意言語
+  <% @current_user.good_langs.each do |pg| %>
+    <span class="badge badge-primary"><%= pg.name %></span>
+  <% end %><br>
+  学びたい言語
+  <% @current_user.learn_langs.each do |pg| %>
+    <span class="badge badge-primary"><%= pg.name %></span>
+  <% end %>
+  <br>
+  <%= image_tag @current_user.image.to_s %>
+</div>
+

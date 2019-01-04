@@ -18,3 +18,12 @@
  *= require material/gaia.css
  *= require material/fonts/pe-icon-7-stroke.css
  */
+ 
+.table { margin: auto;
+    width: 70% !important; }
+
+.table tr {height:3em;}
+
+#badge{
+    display: inline;
+}
