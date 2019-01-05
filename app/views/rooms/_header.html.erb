@@ -3,38 +3,22 @@
 <%= stylesheet_link_tag "me/header/flaticon.css", :media => "all" %>
 <%= stylesheet_link_tag "me/header/style.css", :media => "all" %>
 
-
 <header class="header-section">
   <div class="container">
     <!-- Site Logo -->
-    <a href="index.html" class="site-logo">
+    <div class="site-logo">
       <%= image_tag("/images/logo.PNG", :size => "115x55") %>
-    </a>
+    </div>
 
     <!-- Main Menu -->
-    <ul class="main-menu">
-      <li><a href="index.html">Home</a></li>
+    <ul class="main-menu">    
+			<li class=""><%= link_to "言語友達検索", users_index_path %></li>
 
-			<% if controller.action_name == 'index' %>
-        <li class="active"><%= link_to "言語友達検索", users_index_path %></li>
-			<% else %>
-				<li class=""><%= link_to "言語友達検索", users_index_path %></li>
-			<% end %>
+			<li class=""><%= link_to "メッセージ", rooms_path %></li>
 
-			<% if controller.action_name == 'show' %>
-        <li class="active"><%= link_to "メッセージ", rooms_path %></li>
-			<% else %>
-				<li class=""><%= link_to "メッセージ", rooms_path %></li>
-			<% end %>
-
-			<% if controller.action_name == 'me' %>
-        <li class="active"><%= link_to "マイページ", users_me_path %></li>
-      <% else %>
-				<li class=""><%= link_to "マイページ", users_me_path %></li>  
-      <% end %>
+			<li class=""><%= link_to "マイページ", users_me_path %></li>  
       
       <li><%= link_to 'ログアウト', logout_path, method: :delete %></li>
-      <li><a href="elements.html"><i class="flaticon-020-decay"></i></a></li>
     </ul>
 
   </div>

@@ -1,12 +1,13 @@
+<%= render 'shared/error_messages' %>
 <%= render 'header' %>
 <%= stylesheet_link_tag "https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css", :media => "all" %>
 <script type="text/javascript">
-$(document).on('change', ':file', function() {
-    var input = $(this),
-    numFiles = input.get(0).files ? input.get(0).files.length : 1,
-    label = input.val().replace(/\\/g, '/').replace(/.*\//, '');
-    input.parent().parent().next(':text').val(label);
-});
+  $(document).on('change', ':file', function() {
+      var input = $(this),
+      numFiles = input.get(0).files ? input.get(0).files.length : 1,
+      label = input.val().replace(/\\/g, '/').replace(/.*\//, '');
+      input.parent().parent().next(':text').val(label);
+  });
 </script>
 
 <div class="container bootstrap snippet">
@@ -18,21 +19,27 @@ $(document).on('change', ':file', function() {
 
       <div class="text-center">
       <%= form_for @current_user do |f| %>
-        <% if @current_user.image %>
+        <% if @current_user.image? %>
           <%= image_tag(@current_user.image.to_s, :size => "200x100", :class => "avatar img-circle img-thumbnail") %>
           <h6></h6>
           <div class="input-group">
-           <label class="input-group-btn">
-            <span class="btn btn-primary">
-              Choose File<%= f.file_field :image, :style => "display:none" %>
-            </span>
-          </label>
+            <label class="input-group-btn">
+              <span class="btn btn-primary">
+                画像変更<%= f.file_field :image, :style => "display:none" %>
+              </span>
+            </label>
             <input type="text" class="form-control" readonly="">
           </div>
         <% else %>
           <img src="http://ssl.gstatic.com/accounts/ui/avatar_2x.png" class="avatar img-circle img-thumbnail" alt="avatar">
-          <h6>Upload a different photo...</h6>
-          <input type="file" class="text-center center-block file-upload">
+          <div class="input-group">
+            <label class="input-group-btn">
+              <span class="btn btn-primary">
+                画像登録<%= f.file_field :image, :style => "display:none" %>
+              </span>
+            </label>
+            <input type="text" class="form-control" readonly="">
+          </div>
         <% end %>
       
       </div></hr><br>  
@@ -56,7 +63,7 @@ $(document).on('change', ':file', function() {
           <hr>
             <div class="form-group">
               <div class="col-xs-6">
-                <label for="nickname"><h4>表示名</h4></label>
+                <label for="nickname"><h4>ユーザー名 (表示名)</h4></label>
                 <%= f.text_field :user_name, class: 'form-control' %>
               </div>
             </div>
@@ -94,6 +101,13 @@ $(document).on('change', ':file', function() {
                 <% end %>
               </div>
             </div>
+            <div class="form-group">        
+              <div class="col-xs-12">
+                <label for="learn_lang"><h4>自己紹介</h4></label><br>
+                <%= f.text_area :introduction, :size => "75x5" %>
+              </div>
+            </div>
+
             <div class="form-group">
               <div class="col-xs-6">
               <%= f.label :password, 'パスワード' %>

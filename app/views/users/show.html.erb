@@ -1,43 +1,94 @@
+<%= render 'header' %>
 
-<%= link_to "TOPへ", root_path %>
-<div class="card-header">
-  <h4>ユーザープロフィール</h4>
-  メールアドレス
-  <%= @user.email %><br>
-  表示名
-  <%= @user.user_name %><br>
-  性別
-  <% if @user.gender == 'male' %>
-    男性<br>
-  <% else %>
-    女性<br>
-  <% end %>
-  年齡
-  <%= @user.age %><br>
+<link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+<script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+<!------ Include the above in your HEAD tag ---------->
 
-  得意言語
-  <% @user.good_langs.each do |pg| %>
-    <span class="badge badge-primary"><%= pg.name %></span>
-  <% end %><br>
-  学びたい言語
-  <% @user.learn_langs.each do |pg| %>
-    <span class="badge badge-primary"><%= pg.name %></span>
-  <% end %>
+<hr class="">
+<div class="container target">
+    <div class="row">
+        <div class="col-sm-10">
+          <h1 class=""><%= @user.user_name %></h1>
+          <% if @user.id == @current_user.id %>
+            <script>location.href = "/users/me";</script>
+          <% else %>
+          <br>
+            <% if @isRoom == true %>
+              <button type="submit" class="btn btn-info" onClick="location.href='/rooms/<%= @roomId %>'">
+                チャットへ
+              </button>
+            <% else %>
+              <%= form_for @room do |f| %>
+                <%= fields_for @entry do |e| %>
+                  <%= e.hidden_field :user_id, :value=> @user.id %>
+                <% end %>
+                  <%= button_tag :type => "submit", :class => "btn btn-info" do %>
+                    <i>チャットを始める</i>
+                  <% end %>
+              <% end %>
+            <% end %>
+          <% end %>
+            <br>
+        </div>
+      <div class="col-sm-2">
+        <span class="pull-right">
+          <%= image_tag(@user.image.to_s,  :class => "img-circle img-responsive") %>
+        </span>
+      </div>
+    </div>
+  <br>
+    <div class="row">
+        <div class="col-sm-3">
+            <!--left col-->
+            <ul class="list-group">
+                <li class="list-group-item text-muted" contenteditable="false">Profile</li>
+                <li class="list-group-item text-right"><span class="pull-left"><strong class="">年齡</strong></span><%= @user.age %></li>
+                <li class="list-group-item text-right"><span class="pull-left"><strong class="">性別</strong></span><% if @user.gender == 'male' %>男性<% else %>女性<% end %></li>
+                <li class="list-group-item text-right"><span class="pull-left"><strong class="">地域</strong></span><%= @user.prefecture.name %></li>
+            </ul>
+            <div class="panel panel-default">
+                <div class="panel-heading">Website <i class="fa fa-link fa-1x"></i>
+
+                </div>
+                <div class="panel-body"><a href="http://bootply.com" class="">bootply.com</a>
+
+                </div>
+            </div>
+          
+            
+            <div class="panel panel-default">
+                <div class="panel-heading">Social Media</div>
+                <div class="panel-body">	<i class="fa fa-facebook fa-2x"></i>  <i class="fa fa-github fa-2x"></i> 
+                    <i class="fa fa-twitter fa-2x"></i> <i class="fa fa-pinterest fa-2x"></i>  <i class="fa fa-google-plus fa-2x"></i>
+
+                </div>
+            </div>
+        </div>
+        <!--/col-3-->
+        <div class="col-sm-9" style="" contenteditable="false">
+            <div class="panel panel-default">
+                <div class="panel-heading">自己紹介</div>
+                <div class="panel-body">
+                  <%= @user.introduction %>
+                </div>
+            </div>
+
+           <div class="panel panel-default">
+                <div class="panel-heading">Skills</div>
+                <div class="panel-body">
+                  <label>得意　　</label>
+                  <% @user.good_langs.each do |pg| %>
+                    <h6 id="badge"><span class="label label-primary"><%= pg.name %></span></h6>
+                  <% end %><br>
+                  <label>学びたい</label>
+                  <% @user.learn_langs.each do |pg| %>
+                    <h6 id="badge"><span class="label label-warning"><%= pg.name %></span></h6>
+                  <% end %>
+
+                </div>
+</div></div>
+
+
+      
 </div>
-
-<% if @user.id == @current_user.id %>
-
-<% else %>
-  <% if @isRoom == true %>
-    <p><a href="/rooms/<%= @roomId %>">チャットへ</a>
-  <% else %>
-    <%= form_for @room do |f| %>
-      <%= fields_for @entry do |e| %>
-        <%= e.hidden_field :user_id, :value=> @user.id %>
-      <% end %>
-      <%= f.submit "チャットを始める" %>
-    <% end %>
-  <% end %>
-<% end %>
-
-

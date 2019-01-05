@@ -1,8 +1,33 @@
-<h1>DM</h1>
+<%= render 'header' %>
+<%= stylesheet_link_tag "dm/dmList.css", :media => "all" %>
 
+<div class="body">
+<div text-align: center;><h2>メッセージ一覧 </h2> </div>
+<div class="container page-container">
+<div class="row gutters">
 <% @anotherEntries.each do |e| %>
-  <%= link_to room_path(e.room.id) do %>
-    <hr>
-    <%= e.user.user_name %>とのDM<br>
-  <% end %>
+  <% user = "user-card green" %>
+  <% colors = ["user-card green", "user-card blue", "user-card red", "user-card yellow", "user-card orange", "user-card teal", "user-card pink", "user-card yellow", "user-card brown", "user-card purple"] %>
+  <% colors.shuffle! %>
+    <div class="col-xl-3 col-lg-3 col-md-3 col-sm-4 col-12">
+      <figure class='<%= colors[0] %>'>
+	  		<figcaption>
+      		<%= image_tag(e.user.image.to_s, :class => "profile") %>
+	  				<h5><%= e.user.user_name %></h5>
+	  				<h6><% if e.user.gender == 'male' %>男 <% else %>女 <% end %><%= e.user.age %>歳</h6>
+
+	  				<ul class="contacts">
+	  					<li>
+        	  	<%= link_to room_path(e.room.id) do %>
+        	    	チャットへ
+        	  	<% end %>
+	  					</li>
+	  				</ul>
+	  		</figcaption>
+	  	</figure>
+  	</div>
 <% end %>
+
+</div>
+</div>
+</div>

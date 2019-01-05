@@ -1,67 +1,92 @@
 <%= render 'shared/error_messages' %>
+<%= stylesheet_link_tag "registration/registration.css", :media => "all" %>
+<link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<!------ Include the above in your HEAD tag ---------->
 
-<div class="container">
-  <h1>新規登録</h1>
-    <%= form_for @user do |f| %>
-      <div class="form-group">
-        <%= f.label :email, 'メールアドレス' %>
-        <%= f.text_field :email, class: 'form-control' %>
-      </div>
-      <div class="form-group">
-        <%= f.label :password, 'パスワード' %>
-        <%= f.password_field:password, class: 'form-control' %>
-      </div>
-      <div class="form-group">
-        <%= f.label :password_confirmation, '確認用パスワード' %>
-        <%= f.password_field :password_confirmation, class: 'form-control' %>
-      </div>
-      <div class="form-group">
-        <%= f.label :user_name, 'ユーザー名(表示名)' %>
-        <%= f.text_field :user_name, class: 'form-control' %>
-      </div>
-      <div class="form-group">
-        <%= f.label :gender, '性別' %><br>
-        <%= f.label :male, '男性' %>        
-        <%= f.radio_button :gender, :male, class: 'radio-inline' %>
-        <%= f.label :female, '女性' %>        
-        <%= f.radio_button :gender, :female, class: 'radio-inline' %>
-      </div>
-      <div class="form-group">
-        <%= f.label :age, '年齢' %>
-        <%= f.select(:age, options_for_select((18..85).to_a)) %>
-      </div>
-      <div class="form-group">
-       <%= f.label :prefecture_id, '地域' %>
-       <%= f.collection_select :prefecture_id, Prefecture.all, :id, :name %>
-      </div>
-        
-      <div class="form-group">
-        <%= f.label :lang, "得意言語" %><br>
-        <%= f.collection_check_boxes(:good_lang_ids, ProgramLang.all, :id, :name) do |n| %>
-          <div class="checkbox-inline">
-            <%= n.label do %>
-              <%= n.check_box %>
-              <%= n.text %>
-            <% end %>          
+<div class="container register">
+  <div class="row">
+    <div class="col-md-3 register-left">
+      <img src="https://image.ibb.co/n7oTvU/logo_white.png" alt=""/>
+      <h3>Welcome!</h3>
+      <p class="title-font">既に会員の方はLoginボタンをクリック</p>
+      <input type="button" onclick="location.href='/top/login'" value="Login"/><br/>
+    </div>
+    <div class="col-md-9 register-right">
+      <ul class="nav nav-tabs nav-justified" id="myTab" role="tablist">
+        <li class="nav-item">
+          <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">新規会員登録</a>
+        </li>
+      </ul>
+      <div class="tab-content" id="myTabContent">
+        <h3 class="register-heading"><div class="title-font">会員基本情報</div></h3>
+        <%= form_for @user do |f| %>
+        <div class="row register-form">
+          <div class="col-md-6">  
+            <div class="form-group">
+              <%= f.text_field :email, class:'form-control', placeholder: "Email Address *" %>
+            </div>
+            <div class="form-group">
+              <%= f.password_field :password, class: 'form-control', placeholder: "Password *" %>
+            </div>
+            <div class="form-group">
+              <%= f.select(:age, options_for_select((18..85).to_a), {prompt: "Please select your Age"}, {class: 'form-control'}) %>
+            </div>    
           </div>
+          <div class="col-md-6">
+            <div class="form-group">
+              <%= f.text_field :user_name, class: 'form-control', placeholder: "Your Name *"  %>
+            </div>
+            <div class="form-group">
+              <%= f.password_field :password_confirmation, class: 'form-control', placeholder: "Confirm Password *" %>
+            </div>
+            <div class="form-group">
+              <%= f.collection_select(:prefecture_id, Prefecture.all, :id, :name, {prompt: "Please select your location"}, {class: 'form-control'}) %>
+            </div>   
+          </div>
+          <div class="col-md-12">
+            <div class="form-group"> 
+              <label> 
+                <%= f.radio_button :gender, :male, {:checked => true} %>
+                <span> Male </span> 
+              </label>
+              <label> 
+                <%= f.radio_button :gender, :female %>
+                <span>Female </span> 
+              </label>
+            </div>
+          </div>
+          <div class="col-md-12">
+            <h6><label class="label label-info">得意言語</label></h6>
+            <%= f.collection_check_boxes(:good_lang_ids, ProgramLang.all, :id, :name) do |n| %>
+              <div class="checkbox-inline">
+                <%= n.label do %>
+                  <%= n.check_box %>
+                  <%= n.text %>
+                <% end %>          
+              </div>
+            <% end %>
+          </div>
+          <div class="col-md-12">
+            <h6><label class="label label-danger">学びたい言語</label></h6>
+            <%= f.collection_check_boxes(:learn_lang_ids, ProgramLang.all, :id, :name) do |n| %>
+              <div class="checkbox-inline">
+                <%= n.label do %>
+                  <%= n.check_box %>
+                  <%= n.text %>
+                <% end %>          
+              </div>
+            <% end %>
+          </div>
+          <div class="col-md-8">
+            <%= f.submit '登録する', class: 'btnRegister' %>
+          </div>
+          
+        </div>
         <% end %>
       </div>
-
-      <div class="form-group">
-        <%= f.label :lang, "学びたい言語" %><br>
-        <%= f.collection_check_boxes(:learn_lang_ids, ProgramLang.all, :id, :name) do |n| %>
-          <div class="checkbox-inline">
-            <%= n.label do %>
-              <%= n.check_box %>
-              <%= n.text %>
-            <% end %>          
-          </div>
-        <% end %>
-      </div>
-      <div class="form-group">
-        <%= f.label :image %>
-        <%= f.file_field :image %>
-      </div>
-      <%= f.submit '作成', class: 'btn btn-primary' %>
-    <% end %>
+    </div>
+  </div>
 </div>
+

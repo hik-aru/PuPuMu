@@ -20,10 +20,25 @@
  */
  
 .table { margin: auto;
-    width: 70% !important; }
-
+    width: 70% !important;
+}
 .table tr {height:3em;}
 
 #badge{
     display: inline;
+}
+.title-font{
+    font-family: 'Hannotate TC',sans-serif;
+}
+.about{
+    font-family: 'Wawati SC',sans-serif;
+}
+.about1{
+    font-family: 'Kaiti SC',sans-serif;
+}
+.about2{
+    font-family: 'Hiragino Kaku Gothic ProN','ヒラギノ角ゴ ProN W3',sans-serif;
+}
+.about3{
+    font-family: 'ＭＳ 明朝', 'MS Mincho',sans-serif;
 }

@@ -8,15 +8,12 @@
         <span class="icon-bar bar2"></span>
         <span class="icon-bar bar3"></span>
       </button>
-      <a href="http://www.creative-tim.com" class="navbar-brand">
-        ProExchange
+      <a href="#" class="navbar-brand">
+        PuPuMu
       </a>
     </div>
     <div class="collapse navbar-collapse">
       <ul class="nav navbar-nav navbar-right navbar-uppercase">
-        <li>
-          <a href="/users/index">言語友達検索</a>
-        </li>
         <% if @current_user %>
           <li>
             <a href="rooms#index">メッセージ</a>
@@ -42,20 +39,7 @@
           </li>
         <% else %>
           <li class="dropdown">
-            <a href="/top/login" class="dropdown-toggle" data-toggle="dropdown">
-              <i class="fa fa-share-alt"></i> ログイン
-            </a>
-            <ul class="dropdown-menu dropdown-danger">
-              <li>
-                <a href="#"><i class="fa fa-facebook-square"></i> Facebook</a>
-              </li>
-              <li>
-                <a href="#"><i class="fa fa-twitter"></i> Twitter</a>
-              </li>
-              <li>
-                <a href="#"><i class="fa fa-instagram"></i> Instagram</a>
-              </li>
-            </ul>
+            <a href="/top/login">ログイン</a>
           </li>
           <li>
             <a href="/users/new" class="btn btn-danger btn-fill">会員登録</a>
@@ -76,14 +60,17 @@
     <div class="container">
       <div class="content">
         <div class="title-area">
-          <p>Free Demo</p>
-          <h1 class="title-modern">ProExchange</h1>
-          <h3>プログラミングを教え合おう！</h2>
+          <p></p>
+          <h1 class="title-modern">PuPuMu</h1>
+          <h3 class="about1">
+          PuPuMuはペアプログラミングマッチングサービスです。
+          <br>お互いの得意なプログラム言語を教え合おう！
+          </h3>
           <div class="separator line-separator">♦</div>
         </div
         <div class="button-get-started">
           <a href="/users/new" class="btn btn-white btn-fill btn-lg ">
-            ProExchangeをはじめる
+            <i>PuPuMuをはじめる<i>
           </a>
         </div>
       </div

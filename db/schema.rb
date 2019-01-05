@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_01_02_051428) do
+ActiveRecord::Schema.define(version: 2019_01_04_202639) do
 
   create_table "entries", force: :cascade do |t|
     t.integer "user_id"
@@ -73,6 +73,7 @@ ActiveRecord::Schema.define(version: 2019_01_02_051428) do
     t.datetime "updated_at", null: false
     t.integer "prefecture_id"
     t.string "image"
+    t.text "introduction"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["prefecture_id"], name: "index_users_on_prefecture_id"
   end
