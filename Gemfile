@@ -41,6 +41,7 @@ gem 'font-awesome-rails'
 gem 'ransack'
 gem 'enum_help'
 gem 'carrierwave'
+gem 'fog'
 gem 'rmagick'
 gem 'jquery-rails'
 
