@@ -88,10 +88,17 @@
     <tbody> 
     <tr>
       <td>
+      <% if u.image? %>
         <div class="media">
           <a class="pull-left" href="/users/<%= u.id %>">
             <%= image_tag(u.image.to_s, :size => "100x100", :class => "media-object dp img-circle") %>
           </a>
+      <% else %>
+        <div class="media">
+          <a class="pull-left" href="/users/<%= u.id %>">
+            <img src="http://ssl.gstatic.com/accounts/ui/avatar_2x.png" class="avatar img-circle img-thumbnail" width="100" height="100">
+          </a>
+      <% end %>
           <div class="media-body">
             <h4 class="media-heading"><%= u.user_name %> <small> <%= u.age %>歳 </small></h4>
             <h5>
